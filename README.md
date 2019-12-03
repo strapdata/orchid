@@ -2,14 +2,16 @@
 
 Repository for the Orchid project
 
+![OrchidArch](orchid-architecture.png)
+
 ## Web UI
 
-The Thingsboard Web UI is accessible from http://tb-web-ui.941a7aa2-kube2-azure-northeurope.azure.strapcloud.com/login
+The Thingsboard Web UI is accessible from https://tb-web-ui.941a7aa2-kube2-azure-northeurope.azure.strapcloud.com/login
 The administration account is *sysadmin@thingsboard.org*.
 
 ## Kibana
 
-The Kibana Web UI is accessible from kibana-cl1-dc1.941a7aa2-kube2-azure-northeurope.azure.strapcloud.com/
+The Kibana Web UI is accessible from https://kibana-cl1-dc1.941a7aa2-kube2-azure-northeurope.azure.strapcloud.com/
 
 ## MQTT
 
@@ -18,5 +20,9 @@ Here is the MQTT contact point
 * **PORT** : 1883
 
 ## Kubernetes
+source kube-orchid.env 
+make init 
 
+## Install
 
+Use https://github.com/strapdata/k8s-thingsboard
