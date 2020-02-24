@@ -1,0 +1,30 @@
+acme:
+  caServer: https://acme-v02.api.letsencrypt.org/directory
+  challengeType: dns-01
+  dnsProvider:
+    azure:
+      AZURE_CLIENT_ID: "d4bb6985-e80e-4b4d-bc27-adb348de26a9"
+      AZURE_CLIENT_SECRET: "445b14b8-1709-41ee-9433-f7d848efdc30"
+      AZURE_RESOURCE_GROUP: strapkube
+      AZURE_SUBSCRIPTION_ID: "72738c1b-8ae6-4f23-8531-5796fe866f2e"
+      AZURE_TENANT_ID: "566af820-2f8c-45ac-b975-647d2647b277"
+    name: azure
+  domains:
+    domainsList:
+    - main: '*.orchid.test.strapkube.com'
+    enabled: true
+  email: vroyer@strapdata.com
+  enabled: true
+  logging: true
+  staging: false
+  storage: acme.json
+dashboard:
+  domain: traefik.orchid.test.strapkube.com
+  enabled: true
+debug:
+  enabled: true
+rbac:
+  enabled: true
+ssl:
+  enabled: true
+  enforced: true

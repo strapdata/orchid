@@ -155,6 +155,10 @@ function deploy_traefik_acme() {
 	echo "done."
 }
 
+function update_traefik() {
+   helm upgrade $HELM_DEBUG -f traefik-values.yaml traefik stable/traefik
+}
+
 # $1 = cluster name
 # $2 = datacenter name
 function install_elassandra_datacenter() {
