@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    datacenter-generation: "1"
+  creationTimestamp: "2020-01-16T10:17:50Z"
+  labels:
+    app: elassandra
+    app.kubernetes.io/managed-by: elassandra-operator
+    cluster: orchid
+    datacenter: dc1
+    parent: elassandra-orchid-dc1
+  name: elassandra-orchid-dc1
+  namespace: default
+  ownerReferences:
+  - apiVersion: stable.strapdata.com/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ElassandraDataCenter
+    name: elassandra-orchid-dc1
+    uid: 734f1151-3849-11ea-8c29-6255ee7682b2
+  resourceVersion: "2931315"
+  selfLink: /api/v1/namespaces/default/services/elassandra-orchid-dc1
+  uid: 7358e684-3849-11ea-8c29-6255ee7682b2
+spec:
+  clusterIP: None
+  ports:
+  - name: cql
+    port: 39042
+    protocol: TCP
+    targetPort: 39042
+  - name: jmx
+    port: 7199
+    protocol: TCP
+    targetPort: 7199
+  - name: internode
+    port: 37001
+    protocol: TCP
+    targetPort: 37001
+  - name: elasticsearch
+    port: 9200
+    protocol: TCP
+    targetPort: 9200
+  selector:
+    app: elassandra
+    app.kubernetes.io/managed-by: elassandra-operator
+    cluster: orchid
+    datacenter: dc1
+    parent: elassandra-orchid-dc1
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    datacenter-generation: "1"
+    service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+  creationTimestamp: "2020-01-16T10:17:51Z"
+  labels:
+    app: elassandra
+    app.kubernetes.io/managed-by: elassandra-operator
+    cluster: orchid
+    datacenter: dc1
+    parent: elassandra-orchid-dc1
+  name: elassandra-orchid-dc1-seeds
+  namespace: default
+  ownerReferences:
+  - apiVersion: stable.strapdata.com/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ElassandraDataCenter
+    name: elassandra-orchid-dc1
+    uid: 734f1151-3849-11ea-8c29-6255ee7682b2
+  resourceVersion: "2931332"
+  selfLink: /api/v1/namespaces/default/services/elassandra-orchid-dc1-seeds
+  uid: 73d5439e-3849-11ea-8c29-6255ee7682b2
+spec:
+  clusterIP: None
+  ports:
+  - name: internode
+    port: 37001
+    protocol: TCP
+    targetPort: 37001
+  - name: jmx
+    port: 7199
+    protocol: TCP
+    targetPort: 7199
+  publishNotReadyAddresses: true
+  selector:
+    app: elassandra
+    app.kubernetes.io/managed-by: elassandra-operator
+    cluster: orchid
+    datacenter: dc1
+    parent: elassandra-orchid-dc1
+    rack: "0"
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
