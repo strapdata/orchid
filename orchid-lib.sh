@@ -193,3 +193,36 @@ function generate_client_cert() {
 function view_cert() {
 	openssl x509 -text -in $1
 }
+
+function k8s_dashboard_role() {
+         kubectl create clusterrolebinding kubernetes-dashboard -n kube-system --clusterrole=cluster-admin --serviceaccount=kube-system:kubernetes-dashboard
+}
+
+#---------------------------------------------------------------
+
+function deploy_prometheus_operator() {
+        helm install $HELM_DEBUG --name my-promop \
+                --set prometheus.ingress.enabled=true,prometheus.ingress.hosts[0]="prometheus.${DNS_DOMAIN}",prometheus.ingress.annotations."kubernetes\.io/ingress\.class"="traefik" \
+                --set alertmanager.ingress.enabled=true,alertmanager.ingress.hosts[0]="alertmanager.${DNS_DOMAIN}",alertmanager.ingress.annotations."kubernetes\.io/ingress\.class"="traefik" \
+                --set grafana.ingress.enabled=true,grafana.ingress.hosts[0]="grafana.${DNS_DOMAIN}",grafana.ingress.annotations."kubernetes\.io/ingress\.class"="traefik" \
+                -f prometheus-operator-values.yaml \
+        strapdata/prometheus-operator
+}
+
+function upgrade_prometheus_operator() {
+        helm upgrade $HELM_DEBUG \
+                --set prometheus.ingress.enabled=true,prometheus.ingress.hosts[0]="prometheus.${DNS_DOMAIN}",prometheus.ingress.annotations."kubernetes\.io/ingress\.class"="traefik" \
+                --set alertmanager.ingress.enabled=true,alertmanager.ingress.hosts[0]="alertmanager.${DNS_DOMAIN}",alertmanager.ingress.annotations."kubernetes\.io/ingress\.class"="traefik" \
+                --set grafana.ingress.enabled=true,grafana.ingress.hosts[0]="grafana.${DNS_DOMAIN}",grafana.ingress.annotations."kubernetes\.io/ingress\.class"="traefik" \
+        --set alertmanager.config.global.slack_api_url="https://hooks.slack.com/services/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" \
+                -f prometheus-operator-values.yaml \
+        my-promop strapdata/prometheus-operator
+}
+
+function undeploy_prometheus_operator() {
+        kubectl delete crd prometheuses.monitoring.coreos.com
+        kubectl delete crd prometheusrules.monitoring.coreos.com
+        kubectl delete crd servicemonitors.monitoring.coreos.com
+        kubectl delete crd alertmanagers.monitoring.coreos.com
+        helm delete --purge my-promop
+}

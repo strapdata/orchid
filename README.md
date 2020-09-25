@@ -26,3 +26,24 @@ make init
 ## Install
 
 Use https://github.com/strapdata/k8s-thingsboard
+
+## Deploy prometheus
+
+Update strapdata HELM repo:
+
+helm repo remove strapdata && az acr helm repo add -n strapdata
+
+Deploy:
+
+. kube-orchid.env
+deploy_prometheus_operator
+
+
+## Usage
+
+https://traefik.orchid.test.strapkube.com/dashboard/
+https://tb-web-ui.orchid.test.strapkube.com/
+https://kibana-orchid-dc1.orchid.azure.strapcloud.com/
+https://grafana.orchid.azure.strapcloud.com/
+
+
