@@ -1,0 +1,393 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  annotations:
+    datacenter-fingerprint: 99b91a3
+    datacenter-generation: "1"
+  creationTimestamp: "2020-01-16T10:17:51Z"
+  generation: 17
+  labels:
+    app: elassandra
+    app.kubernetes.io/managed-by: elassandra-operator
+    cluster: orchid
+    datacenter: dc1
+    parent: elassandra-orchid-dc1
+    rack: "0"
+  name: elassandra-orchid-dc1-0
+  namespace: default
+  ownerReferences:
+  - apiVersion: stable.strapdata.com/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ElassandraDataCenter
+    name: elassandra-orchid-dc1
+    uid: 734f1151-3849-11ea-8c29-6255ee7682b2
+  resourceVersion: "36260389"
+  selfLink: /apis/apps/v1/namespaces/default/statefulsets/elassandra-orchid-dc1-0
+  uid: 73f132ce-3849-11ea-8c29-6255ee7682b2
+spec:
+  podManagementPolicy: OrderedReady
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: elassandra
+      app.kubernetes.io/managed-by: elassandra-operator
+      cluster: orchid
+      datacenter: dc1
+      parent: elassandra-orchid-dc1
+      rack: "0"
+  serviceName: elassandra-orchid-dc1
+  template:
+    metadata:
+      annotations:
+        configmap-fingerprint: 4f154b4-19520b7
+      creationTimestamp: null
+      labels:
+        app: elassandra
+        app.kubernetes.io/managed-by: elassandra-operator
+        cluster: orchid
+        datacenter: dc1
+        parent: elassandra-orchid-dc1
+        rack: "0"
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: failure-domain.beta.kubernetes.io/zone
+                operator: In
+                values:
+                - "0"
+      containers:
+      - args:
+        - /tmp/sidecar-config-volume
+        - /tmp/operator-config
+        - /tmp/operator-config-rack
+        - /tmp/operator-config-seeds
+        - /tmp/user-config
+        - /tmp/operator-cluster-secret
+        env:
+        - name: JMX_PORT
+          value: "7199"
+        - name: CQLS_OPTS
+          value: --ssl
+        - name: ES_SCHEME
+          value: https
+        - name: HOST_NETWORK
+          value: "false"
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: status.podIP
+        - name: SEED_HOST_ID
+          value: 00fff5db-4b73-4330-ba15-492204eb3955
+        - name: NODETOOL_OPTS
+          value: -u cassandra -pwf /etc/cassandra/jmxremote.password  --ssl
+        - name: CASSANDRA_DAEMON
+          value: org.apache.cassandra.service.ElassandraDaemon
+        - name: JMX_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: cassandra.jmx_password
+              name: elassandra-orchid
+        image: strapdata.azurecr.io/strapdata/elassandra-node-dev:6.2.3.28
+        imagePullPolicy: IfNotPresent
+        name: elassandra
+        ports:
+        - containerPort: 37000
+          protocol: TCP
+        - containerPort: 37001
+          protocol: TCP
+        - containerPort: 39042
+          protocol: TCP
+        - containerPort: 7199
+          protocol: TCP
+        - containerPort: 9200
+          protocol: TCP
+        - containerPort: 9300
+          protocol: TCP
+        readinessProbe:
+          exec:
+            command:
+            - /ready-probe.sh
+            - "39042"
+            - "9200"
+          failureThreshold: 3
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: "4"
+            memory: 4Gi
+          requests:
+            cpu: "1"
+            memory: 4Gi
+        securityContext:
+          capabilities:
+            add:
+            - IPC_LOCK
+            - SYS_RESOURCE
+          runAsUser: 999
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: FallbackToLogsOnError
+        volumeMounts:
+        - mountPath: /var/lib/cassandra
+          name: data-volume
+        - mountPath: /nodeinfo
+          name: nodeinfo
+        - mountPath: /tmp/sidecar-config-volume
+          name: sidecar-config-volume
+        - mountPath: /var/log/cassandra
+          name: cassandra-log-volume
+        - mountPath: /home/cassandra/.cassandra/cqlshrc
+          name: cqlshrc-volume
+          subPath: cqlshrc
+        - mountPath: /home/cassandra/.curlrc
+          name: curlrc-volume
+          subPath: .curlrc
+        - mountPath: /home/cassandra/.cassandra/nodetool-ssl.properties
+          name: nodetool-ssl-volume
+          subPath: nodetool-ssl.properties
+        - mountPath: /tmp/operator-config
+          name: operator-config-volume-spec
+        - mountPath: /tmp/operator-config-rack
+          name: operator-config-volume-rack
+        - mountPath: /tmp/operator-config-seeds
+          name: operator-config-volume-seeds
+        - mountPath: /tmp/user-config
+          name: user-config-volume
+        - mountPath: /tmp/operator-keystore
+          name: operator-keystore
+        - mountPath: /tmp/operator-truststore
+          name: operator-truststore
+        - mountPath: /tmp/operator-cluster-secret
+          name: operator-cluster-secret
+      dnsPolicy: ClusterFirst
+      initContainers:
+      - command:
+        - sysctl
+        - -w
+        - vm.max_map_count=1048575
+        image: busybox
+        imagePullPolicy: Always
+        name: increase-vm-max-map-count
+        resources: {}
+        securityContext:
+          privileged: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: FallbackToLogsOnError
+      - command:
+        - sh
+        - -c
+        - cp $JAVA_HOME/jre/lib/security/cacerts /tmp/sidecar-truststore/ && keytool
+          -import -trustcacerts -keystore /tmp/sidecar-truststore/cacerts -storepass
+          changeit -alias strapkop -noprompt -file /tmp/operator-truststore/cacert.pem
+        image: openjdk:alpine
+        imagePullPolicy: IfNotPresent
+        name: merge-trust-certs
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: FallbackToLogsOnError
+        volumeMounts:
+        - mountPath: /tmp/operator-truststore
+          name: operator-truststore
+        - mountPath: /tmp/sidecar-truststore
+          name: sidecar-config-volume
+      - command:
+        - sh
+        - -c
+        - kubectl get no ${NODE_NAME} --token="$NODEINFO_TOKEN" -o go-template='{{index.metadata.labels
+          "failure-domain.beta.kubernetes.io/zone"}}' | awk '!/<no value>/ { print
+          $0 }' > /nodeinfo/zone  && kubectl get no ${NODE_NAME} --token="$NODEINFO_TOKEN"
+          -o go-template='{{index.metadata.labels "beta.kubernetes.io/instance-type"}}'|
+          awk '!/<no value>/ { print $0 }' > /nodeinfo/instance-type  && kubectl get
+          no ${NODE_NAME} --token="$NODEINFO_TOKEN" -o go-template='{{index.metadata.labels
+          "storagetier"}}' | awk '!/<no value>/ { print $0 }' > /nodeinfo/storagetier  &&
+          grep ^ /nodeinfo/*
+        env:
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: NODEINFO_TOKEN
+          value: eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6InN0cmFwa29wLWVsYXNzYW5kcmEtb3BlcmF0b3Jub2RlaW5mby10b2tlbi00aG1nNiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJzdHJhcGtvcC1lbGFzc2FuZHJhLW9wZXJhdG9ybm9kZWluZm8iLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiJhODEwNjZmZS0zODQ4LTExZWEtOGMyOS02MjU1ZWU3NjgyYjIiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6ZGVmYXVsdDpzdHJhcGtvcC1lbGFzc2FuZHJhLW9wZXJhdG9ybm9kZWluZm8ifQ.QYYWPs_JPmeg0KY6BGunjgGjJYGaG95q0Gjkvh_hqI5-DvctT_qPhqNTwwIndfMRs2mDwHmEU8sJoFoDViQZRwAFVbLt2WFaO5HpZrbzFRnVa1Kuz_-i8NcBuZnlL1SI9kHx74CfXRnXZSMMDPBfM5KgRu4OzkmXfXkiIypcR2ocVNJTE-RxNf8IfEVXVAqZWiBIaZXq9_X2ulotn7RCyOwm_m_i0o4Xyfs20Bj3OTYcJa40l-q1FahWVHK916mWE9I4ayPwS8KzutlTWf5Afms2ektkjYuT8CRslaBgHXZCUpRG3OK0NCibDxlwmHUkOb82A6AjepPA2O_SxeJypkliANN796YkJ3DBVK4kcMnG6NRVNnpp3MIwQWe8lkpDXyCqi82xtImEVql6q9sLg2EC3_q7NvusHNuuyC_HE3dFi63KMpif5tvv27M-AIXoOoPqLNCTJTy-GnKUf_6lnNdXNTlKCil1EUb5QH20vuezjvWQx9DSZzv_UqbF5KOsOHCjER3PSvQXYei8Ln9zLjtvRKyG5rJ1TUmJ0810IUOaodieQymdW-cJBjemFxFQFDamJUx63_qaMAX1HmOEVvGzxUNQZMfrMurllJWRLUmc7tq8NgvnCiXFykMLgGh91iFWi00MDQaTY9X_t_8aw2Rq-PScrddfTZv6TFeyC58
+        image: bitnami/kubectl
+        imagePullPolicy: Always
+        name: nodeinfo
+        resources: {}
+        securityContext: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: FallbackToLogsOnError
+        volumeMounts:
+        - mountPath: /nodeinfo
+          name: nodeinfo
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext:
+        fsGroup: 999
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - downwardAPI:
+          defaultMode: 420
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.labels
+            path: labels
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.annotations
+            path: annotations
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+            path: name
+        name: pod-info
+      - emptyDir: {}
+        name: sidecar-config-volume
+      - emptyDir: {}
+        name: sidecar-truststore-volume
+      - emptyDir: {}
+        name: cassandra-log-volume
+      - emptyDir: {}
+        name: nodeinfo
+      - name: cqlshrc-volume
+        secret:
+          defaultMode: 420
+          items:
+          - key: cqlshrc
+            mode: 256
+            path: cqlshrc
+          secretName: elassandra-orchid-rc
+      - name: curlrc-volume
+        secret:
+          defaultMode: 420
+          items:
+          - key: curlrc
+            mode: 256
+            path: .curlrc
+          secretName: elassandra-orchid-rc
+      - name: nodetool-ssl-volume
+        secret:
+          defaultMode: 420
+          items:
+          - key: nodetool-ssl.properties
+            mode: 256
+            path: nodetool-ssl.properties
+          secretName: elassandra-orchid-rc
+      - configMap:
+          defaultMode: 420
+          items:
+          - key: cassandra_yaml_d_001_spec_yaml
+            path: cassandra.yaml.d/001-spec.yaml
+          - key: jvm_options_d_001_jmx_options
+            path: jvm.options.d/001-jmx.options
+          - key: cassandra_env_sh_d_001_cassandra_jdb_sh
+            path: cassandra-env.sh.d/001-cassandra-jdb.sh
+          - key: cassandra_yaml_d_002_ssl_yaml
+            path: cassandra.yaml.d/002-ssl.yaml
+          - key: cassandra_yaml_d_002_authentication_yaml
+            path: cassandra.yaml.d/002-authentication.yaml
+          - key: elasticsearch_yml_d_002_enterprise_yaml
+            path: elasticsearch.yml.d/002-enterprise.yaml
+          - key: cassandra_env_sh_d_002_enterprise_sh
+            path: cassandra-env.sh.d/002-enterprise.sh
+          name: elassandra-orchid-dc1-spec-4f154b4
+        name: operator-config-volume-spec
+      - configMap:
+          defaultMode: 420
+          items:
+          - key: cassandra_rackdc_properties
+            path: cassandra-rackdc.properties
+          - key: cassandra_topology_properties
+            path: cassandra-topology.properties
+          name: elassandra-orchid-dc1-0
+        name: operator-config-volume-rack
+      - configMap:
+          defaultMode: 420
+          items:
+          - key: cassandra_yaml_d_003_cassandra_seeds_yaml
+            path: cassandra.yaml.d/003-cassandra-seeds.yaml
+          name: elassandra-orchid-dc1-seeds
+        name: operator-config-volume-seeds
+      - configMap:
+          defaultMode: 420
+          items:
+          - key: cassandra_yaml_d_user_config_overrides_yaml
+            path: cassandra.yaml.d/009-user_config_overrides.yaml
+          name: elassandra-orchid-dc1-user-config
+        name: user-config-volume
+      - name: operator-keystore
+        secret:
+          defaultMode: 420
+          items:
+          - key: keystore.p12
+            path: keystore.p12
+          secretName: elassandra-orchid-dc1-keystore
+      - name: operator-truststore
+        secret:
+          defaultMode: 420
+          items:
+          - key: cacert.pem
+            path: cacert.pem
+          - key: truststore.p12
+            path: truststore.p12
+          secretName: ca-pub
+      - name: operator-cluster-secret
+        secret:
+          defaultMode: 420
+          items:
+          - key: shared-secret.yaml
+            path: elasticsearch.yml.d/003-shared-secret.yaml
+          secretName: elassandra-orchid
+  updateStrategy:
+    rollingUpdate:
+      partition: 0
+    type: RollingUpdate
+  volumeClaimTemplates:
+  - metadata:
+      creationTimestamp: null
+      name: data-volume
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 128Gi
+      volumeMode: Filesystem
+    status:
+      phase: Pending
+status:
+  collisionCount: 0
+  currentReplicas: 1
+  currentRevision: elassandra-orchid-dc1-0-96688d7c7
+  observedGeneration: 17
+  readyReplicas: 1
+  replicas: 1
+  updateRevision: elassandra-orchid-dc1-0-96688d7c7
+  updatedReplicas: 1

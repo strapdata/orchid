@@ -1,0 +1,567 @@
+REVISION: 1
+RELEASED: Mon Feb 24 13:10:35 2020
+CHART: traefik-1.86.1
+USER-SUPPLIED VALUES:
+acme:
+  caServer: https://acme-v02.api.letsencrypt.org/directory
+  challengeType: dns-01
+  dnsProvider:
+    azure:
+      AZURE_CLIENT_ID: d4bb6985-e80e-4b4d-bc27-adb348de26a9
+      AZURE_CLIENT_SECRET: 445b14b8-1709-41ee-9433-f7d848efdc30
+      AZURE_RESOURCE_GROUP: strapkube
+      AZURE_SUBSCRIPTION_ID: 72738c1b-8ae6-4f23-8531-5796fe866f2e
+      AZURE_TENANT_ID: 566af820-2f8c-45ac-b975-647d2647b277
+    name: azure
+  domains:
+    domainsList:
+    - main: '*.orchid.test.strapkube.com'
+    enabled: true
+  email: vroyer@strapdata.com
+  enabled: true
+  logging: true
+  staging: false
+  storage: acme.json
+dashboard:
+  domain: traefik.orchid.test.strapkube.com
+  enabled: true
+debug:
+  enabled: true
+rbac:
+  enabled: true
+ssl:
+  enabled: true
+  enforced: true
+
+COMPUTED VALUES:
+accessLogs:
+  enabled: false
+  fields:
+    defaultMode: keep
+    headers:
+      defaultMode: keep
+      names: {}
+    names: {}
+  filters: {}
+  format: common
+acme:
+  caServer: https://acme-v02.api.letsencrypt.org/directory
+  challengeType: dns-01
+  delayBeforeCheck: 0
+  dnsProvider:
+    auroradns:
+      AURORA_ENDPOINT: ""
+      AURORA_KEY: ""
+      AURORA_USER_ID: ""
+    azure:
+      AZURE_CLIENT_ID: d4bb6985-e80e-4b4d-bc27-adb348de26a9
+      AZURE_CLIENT_SECRET: 445b14b8-1709-41ee-9433-f7d848efdc30
+      AZURE_RESOURCE_GROUP: strapkube
+      AZURE_SUBSCRIPTION_ID: 72738c1b-8ae6-4f23-8531-5796fe866f2e
+      AZURE_TENANT_ID: 566af820-2f8c-45ac-b975-647d2647b277
+    cloudflare:
+      CLOUDFLARE_API_KEY: ""
+      CLOUDFLARE_EMAIL: ""
+    digitalocean:
+      DO_AUTH_TOKEN: ""
+    dnsimple:
+      DNSIMPLE_BASE_URL: ""
+      DNSIMPLE_OAUTH_TOKEN: ""
+    dnsmadeeasy:
+      DNSMADEEASY_API_KEY: ""
+      DNSMADEEASY_API_SECRET: ""
+      DNSMADEEASY_SANDBOX: ""
+    dnspod:
+      DNSPOD_API_KEY: ""
+    dreamhost:
+      DREAMHOST_API_KEY: ""
+    dyn:
+      DYN_CUSTOMER_NAME: ""
+      DYN_PASSWORD: ""
+      DYN_USER_NAME: ""
+    existingSecretName: ""
+    exoscale:
+      EXOSCALE_API_KEY: ""
+      EXOSCALE_API_SECRET: ""
+      EXOSCALE_ENDPOINT: ""
+    gandi:
+      GANDI_API_KEY: ""
+    gcloud:
+      GCE_PROJECT: ""
+      GCE_SERVICE_ACCOUNT_FILE: ""
+    godaddy:
+      GODADDY_API_KEY: ""
+      GODADDY_API_SECRET: ""
+    linode:
+      LINODE_API_KEY: ""
+    name: azure
+    namecheap:
+      NAMECHEAP_API_KEY: ""
+      NAMECHEAP_API_USER: ""
+    ns1:
+      NS1_API_KEY: ""
+    otc:
+      OTC_DOMAIN_NAME: ""
+      OTC_IDENTITY_ENDPOINT: ""
+      OTC_PASSWORD: ""
+      OTC_PROJECT_NAME: ""
+      OTC_USER_NAME: ""
+    ovh:
+      OVH_APPLICATION_KEY: ""
+      OVH_APPLICATION_SECRET: ""
+      OVH_CONSUMER_KEY: ""
+      OVH_ENDPOINT: ""
+    pdns:
+      PDNS_API_URL: ""
+    rackspace:
+      RACKSPACE_API_KEY: ""
+      RACKSPACE_USER: ""
+    rfc2136:
+      RFC2136_NAMESERVER: ""
+      RFC2136_TIMEOUT: ""
+      RFC2136_TSIG_ALGORITHM: ""
+      RFC2136_TSIG_KEY: ""
+      RFC2136_TSIG_SECRET: ""
+    route53:
+      AWS_ACCESS_KEY_ID: ""
+      AWS_REGION: ""
+      AWS_SECRET_ACCESS_KEY: ""
+    vultr:
+      VULTR_API_KEY: ""
+  domains:
+    domainsList:
+    - main: '*.orchid.test.strapkube.com'
+    enabled: true
+  email: vroyer@strapdata.com
+  enabled: true
+  httpChallenge:
+    entrypoint: http
+  keyType: RSA4096
+  logging: true
+  onHostRule: true
+  persistence:
+    accessMode: ReadWriteOnce
+    annotations: {}
+    enabled: true
+    size: 1Gi
+  resolvers: []
+  staging: false
+  storage: acme.json
+affinity: {}
+configFiles: {}
+dashboard:
+  auth: {}
+  domain: traefik.orchid.test.strapkube.com
+  enabled: true
+  ingress: {}
+  service: {}
+  statistics: {}
+debug:
+  enabled: true
+deployment:
+  hostPort:
+    dashboardEnabled: false
+    httpEnabled: false
+    httpsEnabled: false
+deploymentStrategy: {}
+env: {}
+externalTrafficPolicy: Cluster
+extraVolumeMounts: []
+extraVolumes: []
+fileBackend: ""
+forwardedHeaders:
+  enabled: false
+  trustedIPs: []
+gzip:
+  enabled: true
+image: traefik
+imagePullPolicy: IfNotPresent
+imageTag: 1.7.20
+kvprovider:
+  acmeStorageLocation: traefik/acme/account
+  importAcme: false
+  storeAcme: false
+metrics:
+  datadog:
+    enabled: false
+  prometheus:
+    enabled: false
+  statsd:
+    enabled: false
+nodeSelector: {}
+podDisruptionBudget: {}
+proxyProtocol:
+  enabled: false
+  trustedIPs: []
+rbac:
+  enabled: true
+replicas: 1
+resources: {}
+secretFiles: {}
+securityContext: {}
+sendAnonymousUsage: false
+service:
+  nodePorts:
+    http: ""
+    https: ""
+serviceType: LoadBalancer
+ssl:
+  auth: {}
+  defaultCert: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUVtekNDQTRPZ0F3SUJBZ0lKQUpBR1FsTW1DMGt5TUEwR0NTcUdTSWIzRFFFQkJRVUFNSUdQTVFzd0NRWUQKVlFRR0V3SlZVekVSTUE4R0ExVUVDQk1JUTI5c2IzSmhaRzh4RURBT0JnTlZCQWNUQjBKdmRXeGtaWEl4RkRBUwpCZ05WQkFvVEMwVjRZVzF3YkdWRGIzSndNUXN3Q1FZRFZRUUxFd0pKVkRFV01CUUdBMVVFQXhRTktpNWxlR0Z0CmNHeGxMbU52YlRFZ01CNEdDU3FHU0liM0RRRUpBUllSWVdSdGFXNUFaWGhoYlhCc1pTNWpiMjB3SGhjTk1UWXgKTURJME1qRXdPVFV5V2hjTk1UY3hNREkwTWpFd09UVXlXakNCanpFTE1Ba0dBMVVFQmhNQ1ZWTXhFVEFQQmdOVgpCQWdUQ0VOdmJHOXlZV1J2TVJBd0RnWURWUVFIRXdkQ2IzVnNaR1Z5TVJRd0VnWURWUVFLRXd0RmVHRnRjR3hsClEyOXljREVMTUFrR0ExVUVDeE1DU1ZReEZqQVVCZ05WQkFNVURTb3VaWGhoYlhCc1pTNWpiMjB4SURBZUJna3EKaGtpRzl3MEJDUUVXRVdGa2JXbHVRR1Y0WVcxd2JHVXVZMjl0TUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQwpBUThBTUlJQkNnS0NBUUVBdHVKOW13dzlCYXA2SDROdUhYTFB6d1NVZFppNGJyYTFkN1ZiRUJaWWZDSStZNjRDCjJ1dThwdTNhVTVzYXVNYkQ5N2pRYW95VzZHOThPUHJlV284b3lmbmRJY3RFcmxueGpxelUyVVRWN3FEVHk0bkEKNU9aZW9SZUxmZXFSeGxsSjE0VmlhNVFkZ3l3R0xoRTlqZy9jN2U0WUp6bmg5S1dZMnFjVnhEdUdEM2llaHNEbgphTnpWNFdGOWNJZm1zOHp3UHZPTk5MZnNBbXc3dUhUKzNiSzEzSUloeDI3ZmV2cXVWcENzNDFQNnBzdStWTG4yCjVIRHk0MXRoQkN3T0wrTithbGJ0ZktTcXM3TEFzM25RTjFsdHpITHZ5MGE1RGhkakpUd2tQclQrVXhwb0tCOUgKNFpZazErRUR0N09QbGh5bzM3NDFRaE4vSkNZK2RKbkFMQnNValFJREFRQUJvNEgzTUlIME1CMEdBMVVkRGdRVwpCQlJwZVc1dFhMdHh3TXJvQXM5d2RNbTUzVVVJTERDQnhBWURWUjBqQklHOE1JRzVnQlJwZVc1dFhMdHh3TXJvCkFzOXdkTW01M1VVSUxLR0JsYVNCa2pDQmp6RUxNQWtHQTFVRUJoTUNWVk14RVRBUEJnTlZCQWdUQ0VOdmJHOXkKWVdSdk1SQXdEZ1lEVlFRSEV3ZENiM1ZzWkdWeU1SUXdFZ1lEVlFRS0V3dEZlR0Z0Y0d4bFEyOXljREVMTUFrRwpBMVVFQ3hNQ1NWUXhGakFVQmdOVkJBTVVEU291WlhoaGJYQnNaUzVqYjIweElEQWVCZ2txaGtpRzl3MEJDUUVXCkVXRmtiV2x1UUdWNFlXMXdiR1V1WTI5dGdna0FrQVpDVXlZTFNUSXdEQVlEVlIwVEJBVXdBd0VCL3pBTkJna3EKaGtpRzl3MEJBUVVGQUFPQ0FRRUFjR1hNZms4TlpzQit0OUtCemwxRmw2eUlqRWtqSE8wUFZVbEVjU0QyQjRiNwpQeG5NT2pkbWdQcmF1SGI5dW5YRWFMN3p5QXFhRDZ0YlhXVTZSeENBbWdMYWpWSk5aSE93NDVOMGhyRGtXZ0I4CkV2WnRRNTZhbW13QzFxSWhBaUE2MzkwRDNDc2V4N2dMNm5KbzdrYnIxWVdVRzN6SXZveGR6OFlEclpOZVdLTEQKcFJ2V2VuMGxNYnBqSVJQNFhac25DNDVDOWdWWGRoM0xSZTErd3lRcTZoOVFQaWxveG1ENk5wRTlpbVRPbjJBNQovYkozVktJekFNdWRlVTZrcHlZbEpCemRHMXVhSFRqUU9Xb3NHaXdlQ0tWVVhGNlV0aXNWZGRyeFF0aDZFTnlXCnZJRnFhWng4NCtEbFNDYzkzeWZrL0dsQnQrU0tHNDZ6RUhNQjlocVBiQT09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+  defaultIPList: []
+  defaultKey: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFb3dJQkFBS0NBUUVBdHVKOW13dzlCYXA2SDROdUhYTFB6d1NVZFppNGJyYTFkN1ZiRUJaWWZDSStZNjRDCjJ1dThwdTNhVTVzYXVNYkQ5N2pRYW95VzZHOThPUHJlV284b3lmbmRJY3RFcmxueGpxelUyVVRWN3FEVHk0bkEKNU9aZW9SZUxmZXFSeGxsSjE0VmlhNVFkZ3l3R0xoRTlqZy9jN2U0WUp6bmg5S1dZMnFjVnhEdUdEM2llaHNEbgphTnpWNFdGOWNJZm1zOHp3UHZPTk5MZnNBbXc3dUhUKzNiSzEzSUloeDI3ZmV2cXVWcENzNDFQNnBzdStWTG4yCjVIRHk0MXRoQkN3T0wrTithbGJ0ZktTcXM3TEFzM25RTjFsdHpITHZ5MGE1RGhkakpUd2tQclQrVXhwb0tCOUgKNFpZazErRUR0N09QbGh5bzM3NDFRaE4vSkNZK2RKbkFMQnNValFJREFRQUJBb0lCQUhrTHhka0dxNmtCWWQxVAp6MkU4YWFENnhneGpyY2JSdGFCcTc3L2hHbVhuQUdaWGVWcE81MG1SYW8wbHZ2VUgwaE0zUnZNTzVKOHBrdzNmCnRhWTQxT1dDTk1PMlYxb1MvQmZUK3Zsblh6V1hTemVQa0pXd2lIZVZMdVdEaVVMQVBHaWl4emF2RFMyUnlQRmEKeGVRdVNhdE5pTDBGeWJGMG5Zd3pST3ZoL2VSa2NKVnJRZlZudU1melFkOGgyMzZlb1UxU3B6UnhSNklubCs5UApNc1R2Wm5OQmY5d0FWcFo5c1NMMnB1V1g3SGNSMlVnem5oMDNZWUZJdGtDZndtbitEbEdva09YWHBVM282aWY5ClRIenBleHdubVJWSmFnRG85bTlQd2t4QXowOW80cXExdHJoU1g1U2p1K0xyNFJvOHg5bytXdUF1VnVwb0lHd0wKMWVseERFRUNnWUVBNzVaWGp1enNJR09PMkY5TStyYVFQcXMrRHZ2REpzQ3gyZnRudk1WWVJKcVliaGt6YnpsVQowSHBCVnk3NmE3WmF6Umxhd3RGZ3ljMlpyQThpM0F3K3J6d1pQclNJeWNieC9nUVduRzZlbFF1Y0FFVWdXODRNCkdSbXhKUGlmOGRQNUxsZXdRalFjUFJwZVoxMzlYODJreGRSSEdma1pscHlXQnFLajBTWExRSEVDZ1lFQXcybkEKbUVXdWQzZFJvam5zbnFOYjBlYXdFUFQrbzBjZ2RyaENQOTZQK1pEekNhcURUblZKV21PeWVxRlk1eVdSSEZOLwpzbEhXU2lTRUFjRXRYZys5aGlMc0RXdHVPdzhUZzYyN2VrOEh1UUtMb2tWWEFUWG1NZG9xOWRyQW9INU5hV2lECmRSY3dEU2EvamhIN3RZV1hKZDA4VkpUNlJJdU8vMVZpbDBtbEk5MENnWUVBb2lsNkhnMFNUV0hWWDNJeG9raEwKSFgrK1ExbjRYcFJ5VEg0eldydWY0TjlhYUxxNTY0QThmZGNodnFiWGJHeEN6U3RxR1E2cW1peUU1TVpoNjlxRgoyd21zZEpxeE14RnEzV2xhL0lxSzM0cTZEaHk3cUNld1hKVGRKNDc0Z3kvY0twZkRmeXZTS1RGZDBFejNvQTZLCmhqUUY0L2lNYnpxUStQREFQR0YrVHFFQ2dZQmQ1YnZncjJMMURzV1FJU3M4MHh3MDBSZDdIbTRaQVAxdGJuNk8KK0IvUWVNRC92UXBaTWV4c1hZbU9lV2Noc3FCMnJ2eW1MOEs3WDY1NnRWdGFYay9nVzNsM3ZVNTdYSFF4Q3RNUwpJMVYvcGVSNHRiN24yd0ZncFFlTm1XNkQ4QXk4Z0xiaUZhRkdRSDg5QWhFa0dTd1d5cWJKc2NoTUZZOUJ5OEtUCkZaVWZsUUtCZ0V3VzJkVUpOZEJMeXNycDhOTE1VbGt1ZnJxbllpUTNTQUhoNFZzWkg1TXU0MW55Yi95NUUyMW4KMk55d3ltWGRlb3VJcFZjcUlVTXl0L3FKRmhIcFJNeVEyWktPR0QyWG5YaENNVlRlL0FQNDJod294Nm02QkZpQgpvemZFa2wwak5uZmREcjZrL1p2MlQ1TnFzaWxaRXJBQlZGOTBKazdtUFBIa0Q2R1ZMUUJ4Ci0tLS0tRU5EIFJTQSBQUklWQVRFIEtFWS0tLS0tCg==
+  defaultSANList: []
+  enabled: true
+  enforced: true
+  generateTLS: false
+  insecureSkipVerify: false
+  permanentRedirect: false
+  upstream: false
+testFramework:
+  enabled: false
+  image: dduportal/bats
+  tag: 0.4.0
+tolerations: []
+tracing:
+  enabled: false
+  serviceName: traefik
+traefikLogFormat: json
+useNonPriviledgedPorts: false
+whiteListSourceRange: []
+
+HOOKS:
+MANIFEST:
+
+---
+# Source: traefik/templates/default-cert-secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: traefik-default-cert
+  labels:
+    app: traefik
+    chart: traefik-1.86.1
+    release: "traefik"
+    heritage: "Tiller"
+type: Opaque
+data:
+  tls.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUVtekNDQTRPZ0F3SUJBZ0lKQUpBR1FsTW1DMGt5TUEwR0NTcUdTSWIzRFFFQkJRVUFNSUdQTVFzd0NRWUQKVlFRR0V3SlZVekVSTUE4R0ExVUVDQk1JUTI5c2IzSmhaRzh4RURBT0JnTlZCQWNUQjBKdmRXeGtaWEl4RkRBUwpCZ05WQkFvVEMwVjRZVzF3YkdWRGIzSndNUXN3Q1FZRFZRUUxFd0pKVkRFV01CUUdBMVVFQXhRTktpNWxlR0Z0CmNHeGxMbU52YlRFZ01CNEdDU3FHU0liM0RRRUpBUllSWVdSdGFXNUFaWGhoYlhCc1pTNWpiMjB3SGhjTk1UWXgKTURJME1qRXdPVFV5V2hjTk1UY3hNREkwTWpFd09UVXlXakNCanpFTE1Ba0dBMVVFQmhNQ1ZWTXhFVEFQQmdOVgpCQWdUQ0VOdmJHOXlZV1J2TVJBd0RnWURWUVFIRXdkQ2IzVnNaR1Z5TVJRd0VnWURWUVFLRXd0RmVHRnRjR3hsClEyOXljREVMTUFrR0ExVUVDeE1DU1ZReEZqQVVCZ05WQkFNVURTb3VaWGhoYlhCc1pTNWpiMjB4SURBZUJna3EKaGtpRzl3MEJDUUVXRVdGa2JXbHVRR1Y0WVcxd2JHVXVZMjl0TUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQwpBUThBTUlJQkNnS0NBUUVBdHVKOW13dzlCYXA2SDROdUhYTFB6d1NVZFppNGJyYTFkN1ZiRUJaWWZDSStZNjRDCjJ1dThwdTNhVTVzYXVNYkQ5N2pRYW95VzZHOThPUHJlV284b3lmbmRJY3RFcmxueGpxelUyVVRWN3FEVHk0bkEKNU9aZW9SZUxmZXFSeGxsSjE0VmlhNVFkZ3l3R0xoRTlqZy9jN2U0WUp6bmg5S1dZMnFjVnhEdUdEM2llaHNEbgphTnpWNFdGOWNJZm1zOHp3UHZPTk5MZnNBbXc3dUhUKzNiSzEzSUloeDI3ZmV2cXVWcENzNDFQNnBzdStWTG4yCjVIRHk0MXRoQkN3T0wrTithbGJ0ZktTcXM3TEFzM25RTjFsdHpITHZ5MGE1RGhkakpUd2tQclQrVXhwb0tCOUgKNFpZazErRUR0N09QbGh5bzM3NDFRaE4vSkNZK2RKbkFMQnNValFJREFRQUJvNEgzTUlIME1CMEdBMVVkRGdRVwpCQlJwZVc1dFhMdHh3TXJvQXM5d2RNbTUzVVVJTERDQnhBWURWUjBqQklHOE1JRzVnQlJwZVc1dFhMdHh3TXJvCkFzOXdkTW01M1VVSUxLR0JsYVNCa2pDQmp6RUxNQWtHQTFVRUJoTUNWVk14RVRBUEJnTlZCQWdUQ0VOdmJHOXkKWVdSdk1SQXdEZ1lEVlFRSEV3ZENiM1ZzWkdWeU1SUXdFZ1lEVlFRS0V3dEZlR0Z0Y0d4bFEyOXljREVMTUFrRwpBMVVFQ3hNQ1NWUXhGakFVQmdOVkJBTVVEU291WlhoaGJYQnNaUzVqYjIweElEQWVCZ2txaGtpRzl3MEJDUUVXCkVXRmtiV2x1UUdWNFlXMXdiR1V1WTI5dGdna0FrQVpDVXlZTFNUSXdEQVlEVlIwVEJBVXdBd0VCL3pBTkJna3EKaGtpRzl3MEJBUVVGQUFPQ0FRRUFjR1hNZms4TlpzQit0OUtCemwxRmw2eUlqRWtqSE8wUFZVbEVjU0QyQjRiNwpQeG5NT2pkbWdQcmF1SGI5dW5YRWFMN3p5QXFhRDZ0YlhXVTZSeENBbWdMYWpWSk5aSE93NDVOMGhyRGtXZ0I4CkV2WnRRNTZhbW13QzFxSWhBaUE2MzkwRDNDc2V4N2dMNm5KbzdrYnIxWVdVRzN6SXZveGR6OFlEclpOZVdLTEQKcFJ2V2VuMGxNYnBqSVJQNFhac25DNDVDOWdWWGRoM0xSZTErd3lRcTZoOVFQaWxveG1ENk5wRTlpbVRPbjJBNQovYkozVktJekFNdWRlVTZrcHlZbEpCemRHMXVhSFRqUU9Xb3NHaXdlQ0tWVVhGNlV0aXNWZGRyeFF0aDZFTnlXCnZJRnFhWng4NCtEbFNDYzkzeWZrL0dsQnQrU0tHNDZ6RUhNQjlocVBiQT09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+  tls.key: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFb3dJQkFBS0NBUUVBdHVKOW13dzlCYXA2SDROdUhYTFB6d1NVZFppNGJyYTFkN1ZiRUJaWWZDSStZNjRDCjJ1dThwdTNhVTVzYXVNYkQ5N2pRYW95VzZHOThPUHJlV284b3lmbmRJY3RFcmxueGpxelUyVVRWN3FEVHk0bkEKNU9aZW9SZUxmZXFSeGxsSjE0VmlhNVFkZ3l3R0xoRTlqZy9jN2U0WUp6bmg5S1dZMnFjVnhEdUdEM2llaHNEbgphTnpWNFdGOWNJZm1zOHp3UHZPTk5MZnNBbXc3dUhUKzNiSzEzSUloeDI3ZmV2cXVWcENzNDFQNnBzdStWTG4yCjVIRHk0MXRoQkN3T0wrTithbGJ0ZktTcXM3TEFzM25RTjFsdHpITHZ5MGE1RGhkakpUd2tQclQrVXhwb0tCOUgKNFpZazErRUR0N09QbGh5bzM3NDFRaE4vSkNZK2RKbkFMQnNValFJREFRQUJBb0lCQUhrTHhka0dxNmtCWWQxVAp6MkU4YWFENnhneGpyY2JSdGFCcTc3L2hHbVhuQUdaWGVWcE81MG1SYW8wbHZ2VUgwaE0zUnZNTzVKOHBrdzNmCnRhWTQxT1dDTk1PMlYxb1MvQmZUK3Zsblh6V1hTemVQa0pXd2lIZVZMdVdEaVVMQVBHaWl4emF2RFMyUnlQRmEKeGVRdVNhdE5pTDBGeWJGMG5Zd3pST3ZoL2VSa2NKVnJRZlZudU1melFkOGgyMzZlb1UxU3B6UnhSNklubCs5UApNc1R2Wm5OQmY5d0FWcFo5c1NMMnB1V1g3SGNSMlVnem5oMDNZWUZJdGtDZndtbitEbEdva09YWHBVM282aWY5ClRIenBleHdubVJWSmFnRG85bTlQd2t4QXowOW80cXExdHJoU1g1U2p1K0xyNFJvOHg5bytXdUF1VnVwb0lHd0wKMWVseERFRUNnWUVBNzVaWGp1enNJR09PMkY5TStyYVFQcXMrRHZ2REpzQ3gyZnRudk1WWVJKcVliaGt6YnpsVQowSHBCVnk3NmE3WmF6Umxhd3RGZ3ljMlpyQThpM0F3K3J6d1pQclNJeWNieC9nUVduRzZlbFF1Y0FFVWdXODRNCkdSbXhKUGlmOGRQNUxsZXdRalFjUFJwZVoxMzlYODJreGRSSEdma1pscHlXQnFLajBTWExRSEVDZ1lFQXcybkEKbUVXdWQzZFJvam5zbnFOYjBlYXdFUFQrbzBjZ2RyaENQOTZQK1pEekNhcURUblZKV21PeWVxRlk1eVdSSEZOLwpzbEhXU2lTRUFjRXRYZys5aGlMc0RXdHVPdzhUZzYyN2VrOEh1UUtMb2tWWEFUWG1NZG9xOWRyQW9INU5hV2lECmRSY3dEU2EvamhIN3RZV1hKZDA4VkpUNlJJdU8vMVZpbDBtbEk5MENnWUVBb2lsNkhnMFNUV0hWWDNJeG9raEwKSFgrK1ExbjRYcFJ5VEg0eldydWY0TjlhYUxxNTY0QThmZGNodnFiWGJHeEN6U3RxR1E2cW1peUU1TVpoNjlxRgoyd21zZEpxeE14RnEzV2xhL0lxSzM0cTZEaHk3cUNld1hKVGRKNDc0Z3kvY0twZkRmeXZTS1RGZDBFejNvQTZLCmhqUUY0L2lNYnpxUStQREFQR0YrVHFFQ2dZQmQ1YnZncjJMMURzV1FJU3M4MHh3MDBSZDdIbTRaQVAxdGJuNk8KK0IvUWVNRC92UXBaTWV4c1hZbU9lV2Noc3FCMnJ2eW1MOEs3WDY1NnRWdGFYay9nVzNsM3ZVNTdYSFF4Q3RNUwpJMVYvcGVSNHRiN24yd0ZncFFlTm1XNkQ4QXk4Z0xiaUZhRkdRSDg5QWhFa0dTd1d5cWJKc2NoTUZZOUJ5OEtUCkZaVWZsUUtCZ0V3VzJkVUpOZEJMeXNycDhOTE1VbGt1ZnJxbllpUTNTQUhoNFZzWkg1TXU0MW55Yi95NUUyMW4KMk55d3ltWGRlb3VJcFZjcUlVTXl0L3FKRmhIcFJNeVEyWktPR0QyWG5YaENNVlRlL0FQNDJod294Nm02QkZpQgpvemZFa2wwak5uZmREcjZrL1p2MlQ1TnFzaWxaRXJBQlZGOTBKazdtUFBIa0Q2R1ZMUUJ4Ci0tLS0tRU5EIFJTQSBQUklWQVRFIEtFWS0tLS0tCg==
+---
+# Source: traefik/templates/dns-provider-secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: traefik-dnsprovider-config
+  labels:
+    app: traefik
+    chart: traefik-1.86.1
+    release: "traefik"
+    heritage: "Tiller"
+type: Opaque
+data:
+    AZURE_CLIENT_ID: "ZDRiYjY5ODUtZTgwZS00YjRkLWJjMjctYWRiMzQ4ZGUyNmE5"
+    AZURE_CLIENT_SECRET: "NDQ1YjE0YjgtMTcwOS00MWVlLTk0MzMtZjdkODQ4ZWZkYzMw"
+    AZURE_RESOURCE_GROUP: "c3RyYXBrdWJl"
+    AZURE_SUBSCRIPTION_ID: "NzI3MzhjMWItOGFlNi00ZjIzLTg1MzEtNTc5NmZlODY2ZjJl"
+    AZURE_TENANT_ID: "NTY2YWY4MjAtMmY4Yy00NWFjLWI5NzUtNjQ3ZDI2NDdiMjc3"
+---
+# Source: traefik/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: traefik
+  labels:
+    app: traefik
+    chart: traefik-1.86.1
+    release: "traefik"
+    heritage: "Tiller"
+data:
+  traefik.toml: |
+    # traefik.toml
+    debug = true
+    defaultEntryPoints = ["http","https"]
+    [entryPoints]
+      [entryPoints.http]
+      address = ":80"
+      compress = true
+        [entryPoints.http.redirect]
+          regex = "^http://(.*)"
+          replacement = "https://$1"
+      [entryPoints.https]
+      address = ":443"
+      compress = true
+        [entryPoints.https.tls]
+          [[entryPoints.https.tls.certificates]]
+          CertFile = "/ssl/tls.crt"
+          KeyFile = "/ssl/tls.key"
+      [entryPoints.traefik]
+      address = ":8080"
+    [ping]
+    entryPoint = "http"
+    [kubernetes]
+    [traefikLog]
+      format = "json"
+    [acme]
+    KeyType = "RSA4096"
+    email = "vroyer@strapdata.com"
+    storage = "/acme/acme.json"
+    entryPoint = "https"
+    onHostRule = true
+    caServer = "https://acme-v02.api.letsencrypt.org/directory"
+    acmeLogging = true
+      [acme.dnsChallenge]
+      provider = "azure"
+    [[acme.domains]]
+       main = "*.orchid.test.strapkube.com"
+    [api]
+      entryPoint = "traefik"
+      dashboard = true
+---
+# Source: traefik/templates/acme-pvc.yaml
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: traefik-acme
+  labels:
+    app: traefik
+    chart: traefik-1.86.1
+    release: "traefik"
+    heritage: "Tiller"
+spec:
+  accessModes:
+    - "ReadWriteOnce"
+  resources:
+    requests:
+      storage: "1Gi"
+---
+# Source: traefik/templates/rbac.yaml
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: traefik
+---
+# Source: traefik/templates/rbac.yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: traefik
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+      - services
+      - endpoints
+      - secrets
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - extensions
+    resources:
+      - ingresses
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - extensions
+    resources:
+      - ingresses/status
+    verbs:
+      - update
+---
+# Source: traefik/templates/rbac.yaml
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: traefik
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: traefik
+subjects:
+- kind: ServiceAccount
+  name: traefik
+  namespace: kube-system
+---
+# Source: traefik/templates/dashboard-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: traefik-dashboard
+  labels:
+    app: traefik
+    chart: traefik-1.86.1
+    release: "traefik"
+    heritage: "Tiller"
+  annotations:
+spec:
+  type: ClusterIP
+  selector:
+    app: traefik
+    release: traefik
+  ports:
+  - name: dashboard-http
+    port: 80
+    targetPort: 8080
+---
+# Source: traefik/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: traefik
+  labels:
+    app: traefik
+    chart: traefik-1.86.1
+    release: "traefik"
+    heritage: "Tiller"
+  annotations:
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Cluster
+  selector:
+    app: traefik
+    release: traefik
+  ports:
+  - port: 443
+    name: https
+    targetPort: https
+  - port: 80
+    name: http
+    targetPort: http
+---
+# Source: traefik/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traefik
+  labels:
+    app: traefik
+    chart: traefik-1.86.1
+    release: "traefik"
+    heritage: "Tiller"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: traefik
+      release: traefik
+  template:
+    metadata:
+      annotations:
+        checksum/config: 8cfe951ec67b7848d7afc40a62a6815ec430c2d46cb798fe3a3d14f430d30b1d
+      labels:
+        app: traefik
+        chart: traefik-1.86.1
+        release: "traefik"
+        heritage: "Tiller"
+    spec:
+      serviceAccountName: traefik
+      terminationGracePeriodSeconds: 60
+      containers:
+      - image: traefik:1.7.20
+        imagePullPolicy: IfNotPresent
+        name: traefik
+        resources:
+          {}
+          
+        readinessProbe:
+          httpGet:
+            path: /ping
+            port: "http"
+          failureThreshold: 1
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 2
+        livenessProbe:
+          httpGet:
+            path: /ping
+            port: "http"
+          failureThreshold: 3
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 2
+        env:
+          - name: AZURE_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: traefik-dnsprovider-config
+                key: AZURE_CLIENT_ID
+          - name: AZURE_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: traefik-dnsprovider-config
+                key: AZURE_CLIENT_SECRET
+          - name: AZURE_RESOURCE_GROUP
+            valueFrom:
+              secretKeyRef:
+                name: traefik-dnsprovider-config
+                key: AZURE_RESOURCE_GROUP
+          - name: AZURE_SUBSCRIPTION_ID
+            valueFrom:
+              secretKeyRef:
+                name: traefik-dnsprovider-config
+                key: AZURE_SUBSCRIPTION_ID
+          - name: AZURE_TENANT_ID
+            valueFrom:
+              secretKeyRef:
+                name: traefik-dnsprovider-config
+                key: AZURE_TENANT_ID
+        volumeMounts:
+        - mountPath: /config
+          name: config
+        - mountPath: /ssl
+          name: ssl
+        - mountPath: /acme
+          name: acme
+        ports:
+        - name: http
+          containerPort: 80
+          protocol: TCP
+        - name: httpn
+          containerPort: 8880
+          protocol: TCP
+        - name: https
+          containerPort: 443
+          protocol: TCP
+        - name: dash
+          containerPort: 8080
+          protocol: TCP
+        args:
+        - --configfile=/config/traefik.toml
+
+      volumes:
+      - name: config
+        configMap:
+          name: traefik
+      - name: ssl
+        secret:
+          secretName: traefik-default-cert
+      - name: acme
+        persistentVolumeClaim:
+          claimName: traefik-acme
+---
+# Source: traefik/templates/dashboard-ingress.yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: traefik-dashboard
+  labels:
+    app: traefik
+    chart: traefik-1.86.1
+    release: "traefik"
+    heritage: "Tiller"
+  annotations:
+spec:
+  rules:
+  - host: traefik.orchid.test.strapkube.com
+    http:
+      paths:
+      - backend:
+          serviceName: traefik-dashboard
+          servicePort: dashboard-http
